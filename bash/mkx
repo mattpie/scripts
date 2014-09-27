@@ -1,0 +1,23 @@
+#!/bin/bash
+# =============================================
+# Usage: ./mkx filename(s)
+# For the filename(s) provided, adds execute
+# permission for owner
+# =============================================
+if [ $# = 0 ] ; then
+	echo "Usage: $0 filename(s)" 2>&1
+	exit 1
+fi
+for arg; do
+	if [ -d "$arg" ] ; then
+		echo "Do not include directories" 2>&1
+		continue
+	elif [ ! -e "$arg" ]; then
+		echo "$arg doesn't exist" 2>&1
+		continue
+	else
+		chmod u+x "$arg"
+		echo "Owner now can execute $arg"
+	fi
+done
+
