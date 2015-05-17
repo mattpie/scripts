@@ -1,0 +1,53 @@
+#!/bin/bash
+#
+# Backup music or dropbox folder to external hard drive
+#
+# ./mdbak [-m] [-d]
+# use -m for music, -d for dropbox
+#
+#
+
+usage() { echo "Usage: $0 [-m] [-d]" 1>&2; exit 1; }
+
+(( $# )) || usage
+
+# options are m and d
+while getopts ":md" flag; do
+    case "${flag}" in
+        
+        # copy music to hard drive
+        m)
+            src="/home/matt/Music"
+            dst="/media/matt/My Passport/Music/"
+            
+            if [ -d "$dst" ]; then
+                echo "Music backup starting..."
+                cp -ruv "$src" "$dst"
+                echo "Music backup done"
+            
+            else
+                echo "$dst not a directory" 2>&1
+            fi
+            ;;
+        
+        # copy dropbox to hard drive
+        d)
+            src="/home/matt/Dropbox"
+            dst="/media/matt/My Passport/Dropbox/"
+            
+            if [ -d "$dst" ]; then
+                echo "Dropbox backup starting..."
+                cp -ruv "$src" "$dst"
+                echo "Dropbox backup done"
+
+            else
+                echo "$dst not a directory" 2>&1
+            fi            
+            ;;
+
+        *)
+            usage
+            ;;
+    esac
+done
+
