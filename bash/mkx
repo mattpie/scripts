@@ -4,10 +4,15 @@
 # For the filename(s) provided, adds execute
 # permission for owner
 # =============================================
+
+# no arguments entered
 if [ $# = 0 ] ; then
 	echo "Usage: $0 filename(s)" 2>&1
 	exit 1
 fi
+
+# for each filename given, add execute ability for owner
+# if file doesn't exist or is a directory, display message
 for arg; do
 	if [ -d "$arg" ] ; then
 		echo "Do not include directories" 2>&1
